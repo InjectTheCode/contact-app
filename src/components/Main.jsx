@@ -27,9 +27,15 @@ const Main = () => {
           </Button>
         </Link>
 
-        <Button variant="contained" size="large" startIcon={<PeopleAltIcon />}>
-          Show all contacts
-        </Button>
+        <Link to="/contacts">
+          <Button
+            variant="contained"
+            size="large"
+            startIcon={<PeopleAltIcon />}
+          >
+            Show all contacts
+          </Button>
+        </Link>
       </Stack>
     </>
   );

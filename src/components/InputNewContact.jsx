@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import {
   Container,
   Paper,
-  Stack,
   TextField,
   Typography,
   Button,
@@ -16,17 +15,15 @@ import {
 function InputNewContact() {
   return (
     <Container maxWidth="sm">
-      <Paper sx={{ mt: 10 }}>
+      <Paper sx={{ mt: 10 }} elevation={0}>
         <Typography variant="h5" align="center" paddingTop={3}>
           Add a new contact
         </Typography>
         <Box
           component="form"
           sx={{
-            paddingTop: 2,
-            paddingBottom: 2,
-            paddingLeft: 3,
-            paddingRight: 3,
+            px: 2,
+            py: 3,
           }}
         >
           <TextField
@@ -50,6 +47,13 @@ function InputNewContact() {
             label="Telephone"
             type="number"
             id="telephone"
+          />
+          <TextField
+            margin="normal"
+            fullWidth
+            label="Email"
+            type="email"
+            id="email"
           />
           <TextField
             fullWidth

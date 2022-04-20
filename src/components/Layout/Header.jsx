@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 export default function SearchAppBar() {
   return (
