@@ -1,35 +1,54 @@
 import {
   Button,
   Typography,
-  Grid,
   TableContainer,
   Table,
   TableHead,
   TableBody,
   TableRow,
   TableCell,
+  TextField,
+  Stack,
+  InputAdornment,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
+import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
 
 const Contacts = () => {
   return (
     <>
-      <Grid container justifyContent="space-between" px={4} py={2}>
+      <Stack direction="row" justifyContent="space-between" px={4} py={2}>
         <Typography variant="h4">All Contacts</Typography>
 
-        <Link to="/main">
-          <Button
-            variant="outlined"
-            color="warning"
-            sx={{ textTransform: "none" }}
-          >
-            Back to Main page
-          </Button>
-        </Link>
-      </Grid>
+        <Stack direction="row" spacing={2}>
+          <TextField
+            placeholder="Search any data you want..."
+            size="small"
+            sx={{ width: "500px" }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
+
+          <Link to="/main">
+            <Button
+              variant="outlined"
+              color="warning"
+              size="large"
+              sx={{ textTransform: "none" }}
+            >
+              Back to Main page
+            </Button>
+          </Link>
+        </Stack>
+      </Stack>
 
       <TableContainer
         sx={{

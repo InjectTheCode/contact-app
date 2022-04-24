@@ -1,6 +1,7 @@
-import React from "react";
-
+import React, { useContext, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
+import { ContactContext } from "../context/ContactContext";
 
 import {
   Container,
@@ -13,6 +14,53 @@ import {
 } from "@mui/material";
 
 function InputNewContact() {
+  const [name, setName] = useState();
+  const [number, setNumber] = useState();
+  const [telephone, setTelephone] = useState();
+  const [email, setEmail] = useState();
+  const [description, setDescription] = useState();
+
+  const { dispatch, contacts } = useContext(ContactContext);
+
+  console.log(contacts);
+
+  const addNewContact = (e) => {
+    e.preventDefault();
+
+    const newContact = {
+      id: uuidv4(),
+      name: name,
+      phoneNumber: number,
+      telephone: telephone,
+      email: email,
+      description: description,
+    };
+
+    dispatch({ type: "ADD_CONTACT", payload: newContact });
+  };
+
+  const inputChangeHandler = (e) => {
+    if (e.target.id === "name") {
+      setName(e.target.value);
+    }
+
+    if (e.target.id === "phoneNumber") {
+      setNumber(e.target.value);
+    }
+
+    if (e.target.id === "telephone") {
+      setTelephone(e.target.value);
+    }
+
+    if (e.target.id === "email") {
+      setEmail(e.target.value);
+    }
+
+    if (e.target.id === "description") {
+      setDescription(e.target.value);
+    }
+  };
+
   return (
     <Container maxWidth="sm">
       <Paper sx={{ mt: 10 }} elevation={0}>
@@ -33,39 +81,56 @@ function InputNewContact() {
             label="Name"
             type="text"
             id="name"
+            value={name}
+            onChange={inputChangeHandler}
           />
+
           <TextField
             margin="normal"
             fullWidth
             label="Phone Number"
             type="number"
             id="phoneNumber"
+            value={number}
+            onChange={inputChangeHandler}
           />
+
           <TextField
             margin="normal"
             fullWidth
             label="Telephone"
             type="number"
             id="telephone"
+            value={telephone}
+            onChange={inputChangeHandler}
           />
+
           <TextField
             margin="normal"
             fullWidth
             label="Email"
             type="email"
             id="email"
+            value={email}
+            onChange={inputChangeHandler}
           />
+
           <TextField
             fullWidth
             margin="normal"
             placeholder="Add any extra description you want"
+            id="description"
+            value={description}
+            onChange={inputChangeHandler}
           />
+
           <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             size="large"
+            onClick={addNewContact}
           >
             Add Contact
           </Button>
