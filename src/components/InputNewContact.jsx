@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { ContactContext } from "../context/ContactContext";
@@ -11,14 +11,16 @@ import {
   Button,
   Box,
   Grid,
+  Input,
 } from "@mui/material";
 
 function InputNewContact() {
-  const [name, setName] = useState();
-  const [number, setNumber] = useState();
-  const [telephone, setTelephone] = useState();
-  const [email, setEmail] = useState();
-  const [description, setDescription] = useState();
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [newContactAdded, setNewContactAdded] = useState(false);
 
   const { dispatch, contacts } = useContext(ContactContext);
 
@@ -27,17 +29,29 @@ function InputNewContact() {
   const addNewContact = (e) => {
     e.preventDefault();
 
-    const newContact = {
-      id: uuidv4(),
-      name: name,
-      phoneNumber: number,
-      telephone: telephone,
-      email: email,
-      description: description,
-    };
+    if (name.trim() || name.length < 0) {
+      const newContact = {
+        id: uuidv4(),
+        name: name,
+        phoneNumber: number,
+        telephone: telephone,
+        email: email,
+        description: description,
+      };
 
-    dispatch({ type: "ADD_CONTACT", payload: newContact });
+      dispatch({ type: "ADD_CONTACT", payload: newContact });
+
+      localStorage.setItem("contacts", JSON.stringify(contacts));
+      setNewContactAdded(true);
+      setTimeout(() => {
+        setNewContactAdded(false);
+      }, 1500);
+    }
   };
+
+  // useEffect(() => {
+  //   localStorage.setItem("contacts", JSON.stringify(contacts));
+  // }, [contacts]);
 
   const inputChangeHandler = (e) => {
     if (e.target.id === "name") {
@@ -77,6 +91,9 @@ function InputNewContact() {
           <TextField
             margin="normal"
             required
+            error={!name}
+            helperText={!name ? "You have to write the name" : null}
+            autoFocus
             fullWidth
             label="Name"
             type="text"
@@ -134,6 +151,21 @@ function InputNewContact() {
           >
             Add Contact
           </Button>
+
+          {newContactAdded ? (
+            <Typography
+              variant="subtitle1"
+              color="green"
+              textAlign="center"
+              sx={{
+                background: "#DCEDC8",
+                borderRadius: "5px",
+                marginBottom: "0.7rem",
+              }}
+            >
+              New Contact has been Added
+            </Typography>
+          ) : null}
 
           <Grid
             container

@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from "react";
+
 import {
   Button,
   Typography,
@@ -11,13 +13,17 @@ import {
   Stack,
   InputAdornment,
 } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
-import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
 
+import { ContactContext } from "../context/ContactContext";
+import Contact from "./Contact";
+
 const Contacts = () => {
+  // const { contacts } = useContext(ContactContext);
+  const contacts = JSON.parse(localStorage.getItem("contacts"));
+
   return (
     <>
       <Stack direction="row" justifyContent="space-between" px={4} py={2}>
@@ -69,47 +75,9 @@ const Contacts = () => {
           </TableHead>
 
           <TableBody>
-            <TableRow>
-              <TableCell>Mohsen Razavi</TableCell>
-              <TableCell>09122106530</TableCell>
-              <TableCell>02177474961</TableCell>
-              <TableCell>mohsenr1375@gmail.com</TableCell>
-              <TableCell>My own information</TableCell>
-              <TableCell>
-                <ClearIcon sx={{ cursor: "pointer", color: "#D32F2F" }} />
-              </TableCell>
-              <TableCell>
-                <EditIcon sx={{ cursor: "pointer" }} color="warning" />
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>Mr Shariati</TableCell>
-              <TableCell>09119078135</TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>He's the master of React Js</TableCell>
-              <TableCell>
-                <ClearIcon sx={{ cursor: "pointer", color: "#D32F2F" }} />
-              </TableCell>
-              <TableCell>
-                <EditIcon sx={{ cursor: "pointer" }} color="warning" />
-              </TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>Mehran</TableCell>
-              <TableCell>09125352439</TableCell>
-              <TableCell></TableCell>
-              <TableCell>mehransh75@gmail.com</TableCell>
-              <TableCell>My friend since elementry school</TableCell>
-              <TableCell>
-                <ClearIcon sx={{ cursor: "pointer", color: "#D32F2F" }} />
-              </TableCell>
-              <TableCell>
-                <EditIcon sx={{ cursor: "pointer" }} color="warning" />
-              </TableCell>
-            </TableRow>
+            {contacts.map((contact) => (
+              <Contact contact={contact} key={contact.id} />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
