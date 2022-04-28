@@ -21,14 +21,14 @@ import { ContactContext } from "../context/ContactContext";
 import Contact from "./Contact";
 
 const Contacts = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contactsArr, setContactsArr] = useState([]);
   const [errorInfo, setErrorInfo] = useState(true);
   // const { contacts } = useContext(ContactContext);
   // const contacts = JSON.parse(localStorage.getItem("contacts"));
 
   useEffect(() => {
     if (localStorage.getItem("contacts")) {
-      setContacts(JSON.parse(localStorage.getItem("contacts")));
+      setContactsArr(JSON.parse(localStorage.getItem("contacts")));
       setErrorInfo(false);
     }
   }, []);
@@ -85,10 +85,14 @@ const Contacts = () => {
 
           <TableBody>
             {errorInfo ? (
-              <h2>No contacts</h2>
+              <TableRow>
+                <TableCell sx={{ fontWeight: "bold", fontSize: "2rem" }}>
+                  No contacts
+                </TableCell>
+              </TableRow>
             ) : (
-              contacts.map((contact) => (
-                <Contact contact={contact} key={contact.id} />
+              contactsArr.map((contact) => (
+                <Contact contactProps={contact} key={contact.id} />
               ))
             )}
           </TableBody>

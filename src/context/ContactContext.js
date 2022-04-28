@@ -3,7 +3,9 @@ import { createContext, useReducer } from "react";
 const ContactReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CONTACT":
-      return { ...state, contacts: [...state.contacts, action.payload] };
+      return { contacts: [...state.contacts, action.payload] };
+    case "DELETE_CONTACT":
+      return { contacts: [action.payload] };
     default:
       return state;
   }
