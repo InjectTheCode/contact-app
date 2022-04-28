@@ -26,9 +26,6 @@ const Contact = ({ contact }) => {
       <TableCell>
         <ClearIcon sx={{ cursor: "pointer", color: "#F44336" }} />
       </TableCell>
-      <TableCell>
-        <EditIcon sx={{ cursor: "pointer", color: "#FFD54F" }} />
-      </TableCell>
     </TableRow>
   );
 };

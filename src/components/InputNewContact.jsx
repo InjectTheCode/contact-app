@@ -41,7 +41,10 @@ function InputNewContact() {
 
       dispatch({ type: "ADD_CONTACT", payload: newContact });
 
-      localStorage.setItem("contacts", JSON.stringify(contacts));
+      localStorage.setItem(
+        "contacts",
+        JSON.stringify([...contacts, newContact])
+      );
       setNewContactAdded(true);
       setTimeout(() => {
         setNewContactAdded(false);
