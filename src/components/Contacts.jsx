@@ -23,15 +23,25 @@ import Contact from "./Contact";
 const Contacts = () => {
   const [contactsArr, setContactsArr] = useState([]);
   const [errorInfo, setErrorInfo] = useState(true);
-  // const { contacts } = useContext(ContactContext);
-  // const contacts = JSON.parse(localStorage.getItem("contacts"));
+
+  const { dispatch, contacts } = useContext(ContactContext);
 
   useEffect(() => {
     if (localStorage.getItem("contacts")) {
       setContactsArr(JSON.parse(localStorage.getItem("contacts")));
       setErrorInfo(false);
     }
-  }, []);
+  }, [contacts]);
+
+  const deleteHandler = (id) => {
+    const deleteContact = contacts.filter((contact) => contact.id !== id);
+
+    dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
+
+    console.log(deleteContact);
+
+    localStorage.setItem("contacts", JSON.stringify(deleteContact));
+  };
 
   return (
     <>
@@ -92,7 +102,11 @@ const Contacts = () => {
               </TableRow>
             ) : (
               contactsArr.map((contact) => (
-                <Contact contactProps={contact} key={contact.id} />
+                <Contact
+                  contactProps={contact}
+                  key={contact.id}
+                  deleteHandler={deleteHandler}
+                />
               ))
             )}
           </TableBody>
