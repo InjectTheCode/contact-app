@@ -1,8 +1,8 @@
 import React from "react";
-import Contacts from "../components/Contacts";
+import ContactsList from "../components/ContactsList";
 
 function AllContact() {
-  return <Contacts />;
+  return <ContactsList />;
 }
 
 export default AllContact;

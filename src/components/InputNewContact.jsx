@@ -29,7 +29,7 @@ function InputNewContact() {
     if (name.trim() || name.length < 0) {
       const newContact = {
         id: uuidv4(),
-        name: name,
+        name: name.charAt(0).toUpperCase() + name.slice(1),
         phoneNumber: number,
         telephone: telephone,
         email: email,
