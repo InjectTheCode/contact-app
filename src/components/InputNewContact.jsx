@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { ContactContext } from "../context/ContactContext";
@@ -11,7 +11,6 @@ import {
   Button,
   Box,
   Grid,
-  Input,
 } from "@mui/material";
 
 function InputNewContact() {
@@ -23,8 +22,6 @@ function InputNewContact() {
   const [newContactAdded, setNewContactAdded] = useState(false);
 
   const { dispatch, contacts } = useContext(ContactContext);
-
-  console.log(contacts);
 
   const addNewContact = (e) => {
     e.preventDefault();
@@ -46,15 +43,18 @@ function InputNewContact() {
         JSON.stringify([...contacts, newContact])
       );
       setNewContactAdded(true);
+
+      setName("");
+      setNumber("");
+      setTelephone("");
+      setEmail("");
+      setDescription("");
+
       setTimeout(() => {
         setNewContactAdded(false);
       }, 1500);
     }
   };
-
-  // useEffect(() => {
-  //   localStorage.setItem("contacts", JSON.stringify(contacts));
-  // }, [contacts]);
 
   const inputChangeHandler = (e) => {
     if (e.target.id === "name") {

@@ -19,26 +19,25 @@ import { Link } from "react-router-dom";
 
 import { ContactContext } from "../context/ContactContext";
 import Contact from "./Contact";
+import NoContacts from "./NoContacts";
 
 const Contacts = () => {
   const [contactsArr, setContactsArr] = useState([]);
-  const [errorInfo, setErrorInfo] = useState(true);
+  const [searchInput, setSearchInput] = useState("");
 
   const { dispatch, contacts } = useContext(ContactContext);
 
   useEffect(() => {
-    if (localStorage.getItem("contacts")) {
+    if (localStorage.getItem("contacts").length > 0) {
       setContactsArr(JSON.parse(localStorage.getItem("contacts")));
-      setErrorInfo(false);
     }
+    setContactsArr(contacts);
   }, [contacts]);
 
   const deleteHandler = (id) => {
     const deleteContact = contacts.filter((contact) => contact.id !== id);
 
     dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
-
-    console.log(deleteContact);
 
     localStorage.setItem("contacts", JSON.stringify(deleteContact));
   };
@@ -52,6 +51,8 @@ const Contacts = () => {
           <TextField
             placeholder="Search any data you want..."
             size="small"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             sx={{ width: "500px" }}
             InputProps={{
               startAdornment: (
@@ -94,13 +95,7 @@ const Contacts = () => {
           </TableHead>
 
           <TableBody>
-            {errorInfo ? (
-              <TableRow>
-                <TableCell sx={{ fontWeight: "bold", fontSize: "2rem" }}>
-                  No contacts
-                </TableCell>
-              </TableRow>
-            ) : (
+            {contactsArr.length > 0 ? (
               contactsArr.map((contact) => (
                 <Contact
                   contactProps={contact}
@@ -108,6 +103,8 @@ const Contacts = () => {
                   deleteHandler={deleteHandler}
                 />
               ))
+            ) : (
+              <NoContacts />
             )}
           </TableBody>
         </Table>
