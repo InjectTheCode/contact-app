@@ -17,6 +17,7 @@ import Contacts from "./Contacts";
 const ContactsList = () => {
   const [contactsArr, setContactsArr] = useState([]);
   const [searchInput, setSearchInput] = useState("");
+  const [searchToDisplay, setSearchToDisplay] = useState("");
 
   const { dispatch, contacts } = useContext(ContactContext);
 
@@ -36,6 +37,15 @@ const ContactsList = () => {
 
     setSearchInput("");
   };
+
+  useEffect(() => {
+    const searchTimeout = setTimeout(() => {
+      setSearchToDisplay(searchInput);
+    }, 1200);
+
+    return () => clearTimeout(searchTimeout);
+    // return clearTimeout(searchTimeout);
+  }, [searchInput]);
 
   return (
     <>
@@ -82,7 +92,7 @@ const ContactsList = () => {
             contact.email.toLowerCase() +
             contact.description.toLowerCase();
 
-          return searchInAllData.includes(searchInput);
+          return searchInAllData.includes(searchToDisplay);
         })}
       />
     </>
