@@ -4,7 +4,7 @@ const NoContacts = () => {
   return (
     <TableRow>
       <TableCell>
-        <h1>No Contacts</h1>
+        <h3>No Contacts found</h3>
       </TableCell>
     </TableRow>
   );

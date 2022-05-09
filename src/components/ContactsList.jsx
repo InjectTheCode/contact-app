@@ -4,9 +4,11 @@ import {
   Button,
   Typography,
   TextField,
-  Stack,
   InputAdornment,
+  Grid,
+  Container,
 } from "@mui/material";
+
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
@@ -21,8 +23,9 @@ const ContactsList = () => {
 
   const { dispatch, contacts } = useContext(ContactContext);
 
+  // fetching contact list from localStorage and Context
   useEffect(() => {
-    if (localStorage.getItem("contacts").length > 0) {
+    if (localStorage.getItem("contacts")) {
       setContactsArr(JSON.parse(localStorage.getItem("contacts")));
     }
     setContactsArr(contacts);
@@ -30,56 +33,73 @@ const ContactsList = () => {
 
   const deleteHandler = (id) => {
     const deleteContact = contacts.filter((contact) => contact.id !== id);
-
     dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
-
     localStorage.setItem("contacts", JSON.stringify(deleteContact));
 
     setSearchInput("");
   };
 
+  // create delay for searching
   useEffect(() => {
     const searchTimeout = setTimeout(() => {
       setSearchToDisplay(searchInput);
     }, 1200);
-
     return () => clearTimeout(searchTimeout);
-    // return clearTimeout(searchTimeout);
   }, [searchInput]);
 
   return (
-    <>
-      <Stack direction="row" justifyContent="space-between" px={4} py={2}>
-        <Typography variant="h4">All Contacts</Typography>
+    <Container maxWidth="xl" sx={{ marginTop: 3 }}>
+      <Grid container mb={6} direction="row" justifyContent="space-between">
+        <Grid item lg="auto">
+          <Typography variant="h5">All Contacts</Typography>
+        </Grid>
 
-        <Stack direction="row" spacing={2}>
-          <TextField
-            placeholder="Search any data you want..."
-            size="small"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-            sx={{ width: "500px" }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          ></TextField>
+        <Grid item>
+          <Grid container spacing={2}>
+            <Grid item>
+              <Link to="/main">
+                <Button
+                  variant="outlined"
+                  color="warning"
+                  size="medium"
+                  sx={{ textTransform: "none" }}
+                >
+                  Back to Main page
+                </Button>
+              </Link>
+            </Grid>
 
-          <Link to="/main">
-            <Button
-              variant="outlined"
-              color="warning"
-              size="large"
-              sx={{ textTransform: "none" }}
-            >
-              Back to Main page
-            </Button>
-          </Link>
-        </Stack>
-      </Stack>
+            <Grid item>
+              <Link to="/add-new">
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="medium"
+                  sx={{ textTransform: "none" }}
+                >
+                  Add new Contact
+                </Button>
+              </Link>
+            </Grid>
+
+            <Grid item>
+              <TextField
+                placeholder="Search any data you want..."
+                size="small"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
 
       <Contacts
         deleteHandler={deleteHandler}
@@ -87,6 +107,7 @@ const ContactsList = () => {
         filteredContacts={contactsArr.filter((contact) => {
           let searchInAllData =
             contact.name.toLowerCase() +
+            contact.lastName.toLowerCase() +
             contact.phoneNumber +
             contact.telephone +
             contact.email.toLowerCase() +
@@ -95,7 +116,7 @@ const ContactsList = () => {
           return searchInAllData.includes(searchToDisplay);
         })}
       />
-    </>
+    </Container>
   );
 };
 

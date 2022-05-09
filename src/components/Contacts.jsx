@@ -22,15 +22,16 @@ const Contacts = ({ deleteHandler, contactsArr, filteredContacts }) => {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
+            <TableCell>Full Name</TableCell>
             <TableCell>Phone Number</TableCell>
             <TableCell>Telephone</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Desceription</TableCell>
+            <TableCell>Options</TableCell>
           </TableRow>
         </TableHead>
 
-        <TableBody>
+        {/* <TableBody>
           {contactsArr.length > 0 ? (
             filteredContacts.map((contact) => (
               <Contact
@@ -42,6 +43,17 @@ const Contacts = ({ deleteHandler, contactsArr, filteredContacts }) => {
           ) : (
             <NoContacts />
           )}
+        </TableBody> */}
+        <TableBody>
+          {filteredContacts.length == 0 && <NoContacts />}
+          {filteredContacts.length > 0 &&
+            filteredContacts.map((contact) => (
+              <Contact
+                contactProps={contact}
+                key={contact.id}
+                deleteHandler={deleteHandler}
+              />
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

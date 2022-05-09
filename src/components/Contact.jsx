@@ -4,7 +4,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 const Contact = ({ contactProps, deleteHandler }) => {
   return (
     <TableRow>
-      <TableCell>{contactProps.name}</TableCell>
+      <TableCell>
+        {contactProps.name} {contactProps.lastName}
+      </TableCell>
       <TableCell>{contactProps.phoneNumber}</TableCell>
       <TableCell>{contactProps.telephone}</TableCell>
       <TableCell>{contactProps.email}</TableCell>
