@@ -55,7 +55,7 @@ const EditModal = ({ open, onClose }) => {
               label="Name"
               type="text"
               id="name"
-              inputProps={{ maxLength: 20 }}
+              // inputProps={{ maxLength: 20 }}
             />
 
             <TextField

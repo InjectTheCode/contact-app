@@ -27,6 +27,21 @@ export const ContactProvider = (props) => {
     localStorage.setItem("contacts", JSON.stringify(deleteContact));
   };
 
+  const editHandler = (e, contact) => {
+    e.preventDefault();
+
+    const formValues = {
+      id: contact.id,
+      name: contact.name.charAt(0).toUpperCase() + contact.name.slice(1),
+      lastName:
+        contact.lastName.charAt(0).toUpperCase() + contact.lastName.slice(1),
+      phoneNumber: contact.number,
+      telephone: contact.telephone,
+      email: contact.email,
+      description: contact.desc,
+    };
+  };
+
   return (
     <ContactContext.Provider
       value={{
