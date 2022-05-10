@@ -10,7 +10,7 @@ import {
 import Contact from "./Contact";
 import NoContacts from "./NoContacts";
 
-const Contacts = ({ deleteHandler, contactsArr, filteredContacts }) => {
+const Contacts = ({ deleteHandler, filteredContacts }) => {
   return (
     <TableContainer
       sx={{
@@ -27,7 +27,7 @@ const Contacts = ({ deleteHandler, contactsArr, filteredContacts }) => {
             <TableCell>Telephone</TableCell>
             <TableCell>Email</TableCell>
             <TableCell>Desceription</TableCell>
-            <TableCell>Options</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
 
@@ -48,11 +48,7 @@ const Contacts = ({ deleteHandler, contactsArr, filteredContacts }) => {
           {filteredContacts.length == 0 && <NoContacts />}
           {filteredContacts.length > 0 &&
             filteredContacts.map((contact) => (
-              <Contact
-                contactProps={contact}
-                key={contact.id}
-                deleteHandler={deleteHandler}
-              />
+              <Contact contactProps={contact} key={contact.id} />
             ))}
         </TableBody>
       </Table>

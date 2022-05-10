@@ -31,13 +31,13 @@ const ContactsList = () => {
     setContactsArr(contacts);
   }, [contacts]);
 
-  const deleteHandler = (id) => {
-    const deleteContact = contacts.filter((contact) => contact.id !== id);
-    dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
-    localStorage.setItem("contacts", JSON.stringify(deleteContact));
+  // const deleteHandler = (id) => {
+  //   const deleteContact = contacts.filter((contact) => contact.id !== id);
+  //   dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
+  //   localStorage.setItem("contacts", JSON.stringify(deleteContact));
 
-    setSearchInput("");
-  };
+  //   setSearchInput("");
+  // };
 
   // create delay for searching
   useEffect(() => {
@@ -102,7 +102,6 @@ const ContactsList = () => {
       </Grid>
 
       <Contacts
-        deleteHandler={deleteHandler}
         contactsArr={contactsArr}
         filteredContacts={contactsArr.filter((contact) => {
           let searchInAllData =

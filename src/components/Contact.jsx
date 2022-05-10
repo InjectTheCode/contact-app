@@ -1,7 +1,18 @@
-import { TableRow, TableCell } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
+import { useState } from "react";
 
-const Contact = ({ contactProps, deleteHandler }) => {
+import { TableRow, TableCell } from "@mui/material";
+
+import ClearIcon from "@mui/icons-material/Clear";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteModal from "./Modals/DeleteModal";
+
+const Contact = ({ contactProps }) => {
+  const [open, setOpen] = useState(false);
+
+  const modalToggle = () => {
+    setOpen(!open);
+  };
+
   return (
     <TableRow>
       <TableCell>
@@ -13,9 +24,15 @@ const Contact = ({ contactProps, deleteHandler }) => {
       <TableCell>{contactProps.description}</TableCell>
       <TableCell>
         <ClearIcon
-          sx={{ cursor: "pointer", color: "#F44336" }}
-          onClick={() => deleteHandler(contactProps.id)}
+          sx={{ cursor: "pointer", color: "#F44336", marginRight: "15px" }}
+          onClick={modalToggle}
         />
+        <DeleteModal
+          open={open}
+          onClose={modalToggle}
+          contactProps={contactProps}
+        />
+        <EditIcon sx={{ cursor: "pointer", color: "#FFD54F" }} />
       </TableCell>
     </TableRow>
   );
