@@ -164,8 +164,10 @@ function InputNewContact() {
               label="Last Name"
               type="text"
               id="lastName"
+              error={lastName.length === 30}
+              helperText={lastName.length === 30 ? "max character is 30" : null}
               value={lastName}
-              inputProps={{ maxLength: 15 }}
+              inputProps={{ maxLength: 30 }}
               onChange={inputChangeHandler}
             />
 
