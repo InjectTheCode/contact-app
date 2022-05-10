@@ -21,7 +21,7 @@ const ContactsList = () => {
   const [searchInput, setSearchInput] = useState("");
   const [searchToDisplay, setSearchToDisplay] = useState("");
 
-  const { dispatch, contacts } = useContext(ContactContext);
+  const { contacts } = useContext(ContactContext);
 
   // fetching contact list from localStorage and Context
   useEffect(() => {
@@ -30,14 +30,6 @@ const ContactsList = () => {
     }
     setContactsArr(contacts);
   }, [contacts]);
-
-  // const deleteHandler = (id) => {
-  //   const deleteContact = contacts.filter((contact) => contact.id !== id);
-  //   dispatch({ type: "DELETE_CONTACT", payload: deleteContact });
-  //   localStorage.setItem("contacts", JSON.stringify(deleteContact));
-
-  //   setSearchInput("");
-  // };
 
   // create delay for searching
   useEffect(() => {
